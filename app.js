@@ -32,6 +32,13 @@ app.use(middleware.tokenExtractor)
 // woa...woa... come first/after blogsRouter is important, hah, 2020oct08.0333pm thu
 
 
+
+// app.use(express.static('dist'))
+
+// app.get('/health', (req, res) => {
+//   res.send('ok')
+// })
+
 app.use(express.static('build'))
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
