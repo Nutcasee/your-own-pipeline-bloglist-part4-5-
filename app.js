@@ -39,7 +39,7 @@ app.use(middleware.tokenExtractor)
 //   res.send('ok')
 // })
 
-app.use(express.static('build'))
+app.use(express.static('build/static'))
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
