@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/blogs/
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1ZjczNTJjNTMzOGM5ZTI2YmNjYjlmZjEiLCJpYXQiOjE2MDYzOTkyMzh9.otrSULmXzE-YvowEAtnTETZIiegfLF5t0vqNaDRHQO8
+
+{
+    "title": "newwww",
+    "author": "sdfgjhjsdsd",
+    "url": "gyuuyssdfsdf.com",
+    "likes": 800000009,
+    "comments": ["a must read, scintillating book...", "well, it seems fishy"]
+}
