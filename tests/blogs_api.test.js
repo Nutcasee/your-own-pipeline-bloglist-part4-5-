@@ -54,7 +54,7 @@ describe('when there is initially some blogs saved', () => {
 
     test('fails with statuscode 404 if blog does not exist', async () => {
       const validNonexistingId = await helper.nonExistingId()
-
+      /* eslint-disable no-alert, no-console */
       console.log(validNonexistingId)
 
       await api
@@ -91,6 +91,7 @@ describe('when there is initially some blogs saved', () => {
         .expect('Content-Type', /application\/json/)
 
       token = response.body.token
+      /* eslint-disable no-alert, no-console */
       console.log('token ', token)
     })
 
@@ -109,6 +110,7 @@ describe('when there is initially some blogs saved', () => {
         .expect('Content-Type', /application\/json/)
 
       const blogsAtEnd = await helper.blogsInDb()
+      /* eslint-disable no-alert, no-console */
       console.log('blogsAtEnd ', blogsAtEnd)
       expect(blogsAtEnd.length).toBe(helper.initialBlogs.length + 1)
 
@@ -134,6 +136,7 @@ describe('when there is initially some blogs saved', () => {
       const newBlog = {
         url: 'datainvalid.com',
       }
+      /* eslint-disable no-alert, no-console */
       console.log('token 2', token)
 
       await api

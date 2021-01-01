@@ -27,6 +27,7 @@ const App = () => {
         blogs,
         blog => blog.likes,
         (a,b) => b - a)
+      /* eslint-disable no-alert, no-console */
       console.log('sorted Blogs ', sortedBlogs)
       setBlogs(sortedBlogs)
     }
@@ -70,6 +71,7 @@ const App = () => {
         username, password,
       })
 
+      /* eslint-disable no-alert, no-console */
       console.log('user server ', user)
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
@@ -82,6 +84,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (error) {
+      /* eslint-disable no-alert, no-console */
       console.log(error.response.data.error)
       notifyWith('wrong credentials', 'error')
       /*
@@ -107,6 +110,7 @@ const App = () => {
       // notifyWith(`a new blog ${newTitle} by ${newAuthor} added`)
       // setNewBlog('')
     } catch(error) {
+      /* eslint-disable no-alert, no-console */
       console.log(error.response.data.error)
       notifyWith(`${error.response.data.error} `, 'error')
     }
@@ -134,10 +138,12 @@ const App = () => {
     // console.log('blog old likes', blog.likes)
 
     let changedBlog = { ...blog, likes: ++blog.likes }
+    /* eslint-disable no-alert, no-console */
     console.log('changedBlog new likes', changedBlog.likes)
 
     try {
       const updatedBlog = await blogService.update(id, changedBlog)
+      /* eslint-disable no-alert, no-console */
       console.log('updatedBlog new likes', updatedBlog.likes)
       setBlogs(blogs.map(blog => blog._id !== id ? blog : updatedBlog))
       // notifyWith(`a blog ${blog.title} by ${blog.author} updated`)

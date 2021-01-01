@@ -1,9 +1,5 @@
 const _ = require('lodash')
-const { reduce } = require('lodash')
-
-const dummy = (blogs) =>
-  // ...
-  1
+// const { reduce } = require('lodash')
 
 const totalLikes = (blogs) => {
   const reducer = (sum, item) => sum + item.likes
@@ -20,7 +16,7 @@ const favoriteBlog = (blogs) => {
       key = i
     }
   }
-
+  /* eslint-disable no-alert, no-console */
   console.log('key ', key)
   console.log('blogs[key] ', blogs[key])
   return blogs[key]
@@ -35,7 +31,8 @@ const mostBlogs = (blogs) => {
   const counter2 = _.entries(counter)
   const result = _(counter2).uniq().sortBy((fruit) => counter[fruit]).reverse()
     .value()
-  
+
+  /* eslint-disable no-alert, no-console */
   console.log('counter ', counter2)
   console.log('result ', result)
 
@@ -91,6 +88,7 @@ const mostLikes = (blogs) => {
   const newBlogs2 = _(newBlogs)
     .reduce((a,b) => (
       a[1] > b[1] ? a : b))
+  /* eslint-disable no-alert, no-console */
   console.log('newBlogs ', newBlogs2)
   return newBlogs2
 
@@ -103,17 +101,17 @@ const mostLikes = (blogs) => {
   ---
   const newBlogs = _.groupBy(blogs, 'author')
   const newBlogs2 = _.entries(newBlogs)
-  
+
   const newBlogs3 = newBlogs2
     .map(item => totalLikes(item[1]))
-    
+
   console.log('newBlogs ', newBlogs2[1][1])
   console.log('newBlogs ', newBlogs3)
-  
+
   return newBlogs2
   */
 }
 
 module.exports = {
-  dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes
+  totalLikes, favoriteBlog, mostBlogs, mostLikes
 }

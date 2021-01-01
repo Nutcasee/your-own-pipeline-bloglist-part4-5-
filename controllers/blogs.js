@@ -62,6 +62,7 @@ blogsRouter.post('/', async (request, response) => {
   }
 
   blog.user = user.id
+  /* eslint-disable no-alert, no-console */
   console.log('blog by add user.id, likes = 0', blog)
 
   const savedBlog = await blog.save()
@@ -223,7 +224,7 @@ blogsRouter.put('/:id', async (request, response) => {
   // console.log('blogRequest ', blogRequest)
 
   const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blogRequest, { new: true })
-  
+
   // console.log('updated blog ', updatedBlog)
 
   response.status(201).json(updatedBlog)

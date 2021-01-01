@@ -11,7 +11,7 @@ on:
 
 jobs:  
   simple_deployment_pipeline:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     # if: ${{ github.event_name == 'push' }}
     # if: contains(join(github.event.commits.*.message, ', '), '#skip') == 'false'
     steps:

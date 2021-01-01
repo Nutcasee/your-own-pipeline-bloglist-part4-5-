@@ -1,4 +1,4 @@
-const { TestScheduler } = require('jest')
+
 const listHelper = require('../utils/list_helper')
 
 test.skip('dummy returns one', () => {

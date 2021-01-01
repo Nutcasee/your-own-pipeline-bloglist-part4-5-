@@ -1,8 +1,8 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = {
-  entry: ['@babel/polyfill', './src/index.js'], // "./src/index.js",
+  entry: ['@babel/polyfill', './src/index.js'], // './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'main.js',
@@ -14,7 +14,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-react', '@babel/preset-env'],
           },
@@ -24,7 +24,7 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader",
+            loader: 'html-loader',
           },
         ],
       },
@@ -35,7 +35,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"],
+    extensions: ['*', '.js', '.jsx'],
   },
   devServer: {
     // contentBase: path.resolve(__dirname, 'build'),
@@ -45,8 +45,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      filename: "./index.html",
+      template: './public/index.html',
+      filename: './index.html',
     }),
   ],
-};
+}

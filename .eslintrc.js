@@ -1,47 +1,52 @@
 module.exports = {
-  env: {
-    commonjs: true,
-    es6: true,
-    node: true,
-    jest: true
+  'env': {
+    'browser': true,
+    'es6': true,
+    'jest/globals': true,
+    'commonjs': true,
+    'node': true,
   },
-  extends: 'airbnb',
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+  'extends': [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:cypress/recommended',
+  ],
+  'parserOptions': {
+    'ecmaFeatures': {
+      'jsx': true
+    },
+    'ecmaVersion': 2018,
+    'sourceType': 'module'
   },
-  parserOptions: {
-    ecmaVersion: 2018,
-  },
-  rules: {
-    indent: [
+  'plugins': [
+    'react', 'jest'
+  ],
+  'rules': {
+    'indent': [
       'error',
-      2,
+      2
     ],
     'linebreak-style': [
       'error',
-      'windows',
+      'unix'
     ],
-    quotes: [
+    'quotes': [
       'error',
-      'single',
+      'single'
     ],
-    semi: [
+    'semi': [
       'error',
-      'never',
+      'never'
     ],
-    eqeqeq: 'error',
+    'eqeqeq': 'error',
     'no-trailing-spaces': 'error',
     'object-curly-spacing': [
-      'error', 'always',
-    ],
-    'comma-dangle': [
-      'error',
-      'only-multiline'
+      'error', 'always'
     ],
     'arrow-spacing': [
-      'error', { before: true, after: true },
+      'error', { 'before': true, 'after': true }
     ],
-    'no-console': 0,
-  },
+    'no-console': 'error',
+    'react/prop-types': 0
+  }
 }
