@@ -38,10 +38,7 @@ module.exports = {
     extensions: ["*", ".js", ".jsx"],
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'build'),
-    compress: true,
-    port: 3001,
-    // historyApiFallback: true,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebPackPlugin({
