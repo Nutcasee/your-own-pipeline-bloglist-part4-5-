@@ -1,0 +1,24 @@
+name: Hello World!
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-18.04
+    # if: ${{ github.event_name == 'push' }}
+    # if: contains(join(github.event.commits.*.message, ', '), '#skip') == 'false'
+    steps:
+      - name: Say hello
+        run: |
+          echo "Hello World!"
+      - name: Now it is
+        run: |
+          date
+      - name: Directory content
+        run: |
+          ls -l
+          

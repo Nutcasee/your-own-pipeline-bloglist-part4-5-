@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - mastersssss # I don't know, stuckkkkk
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
+        if: contains(join(github.event.commits.*.message, ', '), '#skip') == 'false'
+
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "your-own-pipeline-bloglist" #Must be unique in Heroku
+          heroku_email: "nexustivi@gmail.com"
+          # healthcheck: https://full-stack-pokedex-2020dec29.herokuapp.com/health
+          # checkstring: ok
+          rollbackonhealthcheckfailed: true
+      
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.26.0
+        if: contains(join(github.event.commits.*.message, ', '), '#skip') == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: true

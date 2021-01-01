@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'main.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -38,6 +38,9 @@ module.exports = {
     extensions: ["*", ".js", ".jsx"],
   },
   devServer: {
+    // contentBase: path.resolve(__dirname, 'build'),
+    // compress: true,
+    // port: 3000,
     historyApiFallback: true,
   },
   plugins: [

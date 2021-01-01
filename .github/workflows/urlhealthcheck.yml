@@ -1,0 +1,58 @@
+name: Check the deployed service URL
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'
+
+  # schedule:
+  #   # * is a special character in YAML so you have to quote this string
+  #   - cron:  '* * * * *'
+
+jobs:  
+  Check_the_deployed_service_URL:
+    runs-on: ubuntu-latest
+    # if: ${{ github.event_name == 'push' }}
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v1.2
+        with:
+          # Check the following URLs one by one sequentially
+          url: https://your-own-pipeline-bloglist.herokuapp.com/
+          # url: https://full-stack-pokedex-2020dec29.herokuapp.com/health
+          # Follow redirects, or just report success on 3xx status codes
+          follow-redirect: no # Optional, defaults to "no"
+          # Fail this action after this many failed attempts
+          max-attempts: 3 # Optional, defaults to 1
+          # Delay between retries
+          retry-delay: 5s # Optional, only applicable to max-attempts > 1
+    
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Hello ${{ github.event.inputs.name }}!"
+        echo "- in ${{ github.event.inputs.home }}!" 
+          
+          
+      # - uses: actions/checkout@v2
+      # - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: "full-stack-pokedex-2020dec29" #Must be unique in Heroku
+      #     heroku_email: "nexustivi@gmail.com"
+      #     healthcheck: https://full-stack-pokedex-2020dec29.herokuapp.com/health
+      #     checkstring: ok
+      #     rollbackonhealthcheckfailed: true
+      
+      # - name: Bump version and push tag
+      #   uses: anothrNick/github-tag-action@1.33.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

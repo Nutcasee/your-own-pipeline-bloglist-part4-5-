@@ -7,11 +7,11 @@ describe('Blog app', function() {
       password: 'salainen'
     }
     cy.request('POST', 'http://localhost:3001/api/users/', user)
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3001')
   })
 
   it('Login form is shown', function() {
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3001')
     cy.contains('login')
   })
 
@@ -79,7 +79,7 @@ describe('Blog app', function() {
           password: 'salainen2'
         }
         cy.request('POST', 'http://localhost:3001/api/users/', user)
-        cy.visit('http://localhost:3000')
+        cy.visit('http://localhost:3001')
 
         cy.login({ username: 'mluukkai2', password: 'salainen2' })
       })
