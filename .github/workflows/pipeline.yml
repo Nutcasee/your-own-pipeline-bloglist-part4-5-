@@ -37,8 +37,8 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build
-      # - name: test
-      #   run: npm run test
+      - name: test
+        run: npm run test
       # - name: e2e tests
       #   uses: cypress-io/github-action@v2
         
@@ -68,7 +68,7 @@ jobs:
       #     # Delay between retries
       #     retry-delay: 5s # Optional, only applicable to max-attempts > 1
 
-      
+
         if: ${{ github.event_name == 'push' }}
  
       - uses: actions/checkout@v2
