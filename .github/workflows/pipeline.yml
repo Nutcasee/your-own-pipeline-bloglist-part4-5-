@@ -68,8 +68,14 @@ jobs:
       #     # Delay between retries
       #     retry-delay: 5s # Optional, only applicable to max-attempts > 1
 
+<<<<<<< HEAD
         if: ${{ github.event_name == 'push' }}
 
+=======
+
+        if: ${{ github.event_name == 'push' }}
+ 
+>>>>>>> fbf2ec19184ec11921a52bb84305bf123f7b2002
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         with:
