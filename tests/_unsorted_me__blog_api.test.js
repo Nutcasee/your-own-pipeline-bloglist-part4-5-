@@ -68,7 +68,7 @@ describe('Blog endpoint tests', () => {
     password: 'cat'
   }
 
-  let token
+  // let token
   let headers
 
   beforeEach(async () => {
@@ -85,7 +85,7 @@ describe('Blog endpoint tests', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    token = 'bearer ' + res.body.token
+    // token = 'bearer ' + res.body.token
     // console.log('token ', token)
 
     headers = {
@@ -125,10 +125,10 @@ describe('Blog endpoint tests', () => {
   //auth tests
   test('adding a blog with auth', async () => {
     const newBlog = {
-      "title": "latest blog",
-      "author": "jayesh mann",
-      "url": "https://notworkingurl.com",
-      "likes": 10
+      'title': 'latest blog',
+      'author': 'jayesh mann',
+      'url': 'https://notworkingurl.com',
+      'likes': 10
     }
 
     await api
@@ -316,9 +316,9 @@ describe('When one user is already present', () => {
     const usersAtStart = await User.find({})
 
     const newUser = {
-      "username": "jay",
-      "name": "Jayesh Mann",
-      "password": "ca"
+      'username': 'jay',
+      'name': 'Jayesh Mann',
+      'password': 'ca'
     }
 
     const res = await api
