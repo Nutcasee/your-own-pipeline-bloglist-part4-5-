@@ -5,9 +5,9 @@ on:
     branches:
       - master
       - main
-  # pull_request:
-  #   branches: [master]
-  #   types: [opened, synchronize]
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
 
 jobs:  
   simple_deployment_pipeline:
@@ -68,7 +68,9 @@ jobs:
       #     # Delay between retries
       #     retry-delay: 5s # Optional, only applicable to max-attempts > 1
 
-          
+      
+        if: ${{ github.event_name == 'push' }}
+ 
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         with:
