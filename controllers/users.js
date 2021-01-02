@@ -24,7 +24,7 @@ usersRouter.post('/', async (request, response) => {
   // logger.info('body ', body)
   const userCheck = await User.findOne({ username: body.username })
 
-  if (body.password.length < 3) {
+  if (!body.password || body.password.length < 3) {
     return response.status(400).json({
       error: 'password is shorter than has the minimum allowed length (3)'
     })

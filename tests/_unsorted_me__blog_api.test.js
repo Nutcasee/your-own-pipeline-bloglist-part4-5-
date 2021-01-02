@@ -15,7 +15,7 @@ describe('Blog endpoint tests', () => {
       author: 'Michael Chan',
       url: 'https://reactpatterns.com/',
       likes: 7,
-      __v: 0,
+      __v: 0
     },
     {
       _id: '5a422aa71b54a676234d17f8',
@@ -65,16 +65,19 @@ describe('Blog endpoint tests', () => {
   const loggedInUser = {
     username: 'jayeshmann',
     name: 'Jayesh Mann',
-    password: 'cat',
+    password: 'cat'
   }
 
   let token
+  let headers
 
   beforeEach(async () => {
-    await Blog.deleteMany({})
-    await Blog.insertMany(blogs)
     await User.deleteMany({})
     await api.post('/api/users').send(loggedInUser)
+    await Blog.deleteMany({})
+    await Blog.insertMany(blogs)
+    // await User.deleteMany({}) original in part4, up above -- part CICD, see no diffs
+    // await api.post('/api/users').send(loggedInUser)
 
     const res = await api
       .post('/api/login')
@@ -82,7 +85,12 @@ describe('Blog endpoint tests', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    token = 'bearer ' + res.token
+    token = 'bearer ' + res.body.token
+    // console.log('token ', token)
+
+    headers = {
+      'Authorization': `bearer ${res.body.token}`
+    }
   })
   //no auth tests
   test('all blogs', async () => {
@@ -117,17 +125,19 @@ describe('Blog endpoint tests', () => {
   //auth tests
   test('adding a blog with auth', async () => {
     const newBlog = {
-      title: 'latest blog',
-      author: 'jayesh mann',
-      url: 'https://notworkingurl.com',
-      likes: 10,
+      "title": "latest blog",
+      "author": "jayesh mann",
+      "url": "https://notworkingurl.com",
+      "likes": 10
     }
 
     await api
       .post('/api/blogs')
-      .set('Authorization', token)
+      .set(headers)
+      // .set('Authorization', token)
       .send(newBlog)
-      .expect(200)
+      .expect(201)
+      // .expect(200)
       .expect('Content-Type', /application\/json/)
 
     const res = await Blog.find({})
@@ -143,9 +153,10 @@ describe('Blog endpoint tests', () => {
 
     const res = await api
       .post('/api/blogs')
-      .set('Authorization', token)
+      .set(headers)
+      // .set('Authorization', token)
       .send(newBlog)
-      .expect(200)
+      .expect(201)
       .expect('Content-Type', /application\/json/)
 
     const result = await Blog.findById(res.body.id)
@@ -160,17 +171,36 @@ describe('Blog endpoint tests', () => {
 
     await api
       .post('/api/blogs')
-      .set('Authorization', token)
+      .set(headers)
+      // .set('Authorization', token)
       .send(newBlog)
       .expect(400)
       .expect('Content-Type', /application\/json/)
   })
 
   test('deletion of a single resource', async () => {
-    const allBlogs = await Blog.find({})
+    const newBlog = {
+      title: 'latest blog',
+      author: 'jayesh mann',
+      url: 'https://notworkingurl.com',
+    }
+
+    const res = await api
+      .post('/api/blogs')
+      .set(headers)
+      // .set('Authorization', token)
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const aBlog = await Blog.findById(res.body.id)
+    // console.log('aBlog for delete ', aBlog)
+
+    // const allBlogs = await Blog.find({})
     await api
-      .delete(`/api/blogs/${allBlogs[0].id}`)
-      .set('Authorization', token)
+      .delete(`/api/blogs/${aBlog.id}`)
+      .set(headers)
+      // .set('Authorization', token)
       .expect(204)
   })
 })
@@ -221,7 +251,9 @@ describe('When one user is already present', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-    expect(res.body).toEqual({ error: 'username missing' })
+
+    expect(res.body.error).toContain('`username` is required.')
+    //expect(res.body).toEqual({ error: 'User validation failed: username: Path `username` is required.' })
 
     const usersAtEnd = await User.find({})
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -244,7 +276,8 @@ describe('When one user is already present', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-    expect(res.body).toEqual({ error: 'password missing' })
+    expect(res.body.error).toContain('password is shorter than has the minimum allowed length (3)')
+    //expect(res.body).toEqual({ error: 'password missing' })
 
     const usersAtEnd = await User.find({})
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -267,9 +300,10 @@ describe('When one user is already present', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-    expect(res.body).toEqual({
-      error: 'username should have more than 3 characters',
-    })
+    expect(res.body.error).toContain('`username` (`j`) is shorter than the minimum allowed length (3)')
+    // expect(res.body).toEqual({
+    //   error: 'username should have more than 3 characters',
+    // })
 
     const usersAtEnd = await User.find({})
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -282,9 +316,9 @@ describe('When one user is already present', () => {
     const usersAtStart = await User.find({})
 
     const newUser = {
-      username: 'jay',
-      name: 'Jayesh Mann',
-      password: 'ca',
+      "username": "jay",
+      "name": "Jayesh Mann",
+      "password": "ca"
     }
 
     const res = await api
@@ -292,9 +326,7 @@ describe('When one user is already present', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-    expect(res.body).toEqual({
-      error: 'password should have more than 3 characters',
-    })
+    expect(res.body.error).toContain(' minimum allowed length (3)')
     const usersAtEnd = await User.find({})
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
 
